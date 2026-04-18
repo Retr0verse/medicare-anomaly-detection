@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import statsmodels.formula.api as smf
 
 # Load dataset
 file_path = "data/raw/MUP_PHY_R25_P05_V20_D23_Prov_Svc.csv"
@@ -141,3 +142,60 @@ regression_df = (
 print("\nRegression-ready grouped dataset:")
 print(regression_df.head(10))
 print("\nRegression-ready shape:", regression_df.shape)
+
+# Regression analysis on grouped dataset
+# Dependent variable: avg_allowed_amt
+# Predictors: provider_type, place_of_service, ruca, avg_services, avg_beneficiaries
+
+# Clean regression dataset
+regression_df = regression_df.dropna().copy()
+
+# Convert key categorical fields for modeling
+regression_df["provider_type"] = regression_df["provider_type"].astype("category")
+regression_df["place_of_service"] = regression_df["place_of_service"].astype("category")
+regression_df["ruca"] = regression_df["ruca"].astype(str).astype("category")
+
+# Base regression model
+base_formula = """
+avg_allowed_amt ~ C(provider_type) + C(place_of_service) + C(ruca) + avg_services + avg_beneficiaries
+"""
+
+base_model = smf.ols(formula=base_formula, data=regression_df).fit()
+
+print("\nBase regression summary:")
+print(base_model.summary())
+
+# Interaction model
+interaction_formula = """
+avg_allowed_amt ~ C(provider_type) + C(place_of_service) + C(ruca) + avg_services * avg_beneficiaries
+"""
+
+interaction_model = smf.ols(formula=interaction_formula, data=regression_df).fit()
+
+print("\nInteraction regression summary:")
+print(interaction_model.summary())
+
+# Save coefficient tables for team review
+base_coef = pd.DataFrame({
+    "variable": base_model.params.index,
+    "coefficient": base_model.params.values,
+    "p_value": base_model.pvalues.values
+})
+
+interaction_coef = pd.DataFrame({
+    "variable": interaction_model.params.index,
+    "coefficient": interaction_model.params.values,
+    "p_value": interaction_model.pvalues.values
+})
+
+base_coef.to_csv("reports/base_regression_coefficients.csv", index=False)
+interaction_coef.to_csv("reports/interaction_regression_coefficients.csv", index=False)
+
+# Save full summaries to text files
+with open("reports/base_regression_summary.txt", "w") as f:
+    f.write(base_model.summary().as_text())
+
+with open("reports/interaction_regression_summary.txt", "w") as f:
+    f.write(interaction_model.summary().as_text())
+
+print("\nSaved regression outputs to reports/ folder")

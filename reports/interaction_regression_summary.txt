@@ -1,0 +1,153 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:        avg_allowed_amt   R-squared:                       0.708
+Model:                            OLS   Adj. R-squared:                  0.688
+Method:                 Least Squares   F-statistic:                     36.03
+Date:                Sat, 18 Apr 2026   Prob (F-statistic):               0.00
+Time:                        12:58:24   Log-Likelihood:                -11841.
+No. Observations:                2018   AIC:                         2.394e+04
+Df Residuals:                    1890   BIC:                         2.466e+04
+Df Model:                         127                                         
+Covariance Type:            nonrobust                                         
+===============================================================================================================================================
+                                                                                  coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                     120.5309     25.404      4.745      0.000      70.708     170.354
+C(provider_type)[T.Adult Congenital Heart Disease]                             -5.8568     67.393     -0.087      0.931    -138.030     126.316
+C(provider_type)[T.Advanced Heart Failure and Transplant Cardiology]          -14.9064     37.252     -0.400      0.689     -87.967      58.154
+C(provider_type)[T.All Other Suppliers]                                       121.9064     44.112      2.764      0.006      35.393     208.420
+C(provider_type)[T.Allergy/ Immunology]                                       -26.0814     32.237     -0.809      0.419     -89.305      37.142
+C(provider_type)[T.Ambulance Service Provider]                                228.6754     31.429      7.276      0.000     167.037     290.314
+C(provider_type)[T.Ambulatory Surgical Center]                               1224.7687     32.842     37.292      0.000    1160.358    1289.180
+C(provider_type)[T.Anesthesiology]                                              7.9565     29.173      0.273      0.785     -49.257      65.170
+C(provider_type)[T.Anesthesiology Assistant]                                    8.3567     39.837      0.210      0.834     -69.772      86.486
+C(provider_type)[T.Audiologist]                                               -65.4146     30.529     -2.143      0.032    -125.288      -5.541
+C(provider_type)[T.Cardiac Surgery]                                           184.4383     33.049      5.581      0.000     119.622     249.255
+C(provider_type)[T.Cardiology]                                                 -1.2549     29.637     -0.042      0.966     -59.379      56.869
+C(provider_type)[T.Centralized Flu]                                           -17.2864     32.014     -0.540      0.589     -80.073      45.500
+C(provider_type)[T.Certified Clinical Nurse Specialist]                       -21.2241     32.601     -0.651      0.515     -85.161      42.713
+C(provider_type)[T.Certified Nurse Midwife]                                   -36.1651     33.068     -1.094      0.274    -101.018      28.688
+C(provider_type)[T.Certified Registered Nurse Anesthetist (CRNA)]              23.9207     29.196      0.819      0.413     -33.339      81.181
+C(provider_type)[T.Chiropractic]                                              -60.1130     29.941     -2.008      0.045    -118.834      -1.392
+C(provider_type)[T.Clinic or Group Practice]                                  -25.1850     43.674     -0.577      0.564    -110.839      60.469
+C(provider_type)[T.Clinical Cardiac Electrophysiology]                         49.3841     33.068      1.493      0.135     -15.469     114.237
+C(provider_type)[T.Clinical Laboratory]                                       -86.1222     33.079     -2.604      0.009    -150.997     -21.247
+C(provider_type)[T.Colorectal Surgery (Proctology)]                            50.5393     31.908      1.584      0.113     -12.038     113.117
+C(provider_type)[T.Critical Care (Intensivists)]                                8.5399     31.897      0.268      0.789     -54.018      71.098
+C(provider_type)[T.Dentist]                                                   397.0634     43.677      9.091      0.000     311.402     482.725
+C(provider_type)[T.Dermatology]                                                39.5737     30.542      1.296      0.195     -20.326      99.473
+C(provider_type)[T.Diagnostic Radiology]                                      -40.5520     29.314     -1.383      0.167     -98.043      16.939
+C(provider_type)[T.Emergency Medicine]                                        -15.2711     28.564     -0.535      0.593     -71.292      40.750
+C(provider_type)[T.Endocrinology]                                             -13.4165     30.748     -0.436      0.663     -73.721      46.888
+C(provider_type)[T.Family Practice]                                           -20.9667     28.116     -0.746      0.456     -76.108      34.174
+C(provider_type)[T.Gastroenterology]                                           26.5510     29.749      0.892      0.372     -31.794      84.895
+C(provider_type)[T.General Practice]                                          -16.2711     28.826     -0.564      0.573     -72.805      40.263
+C(provider_type)[T.General Surgery]                                            39.7763     28.829      1.380      0.168     -16.764      96.316
+C(provider_type)[T.Geriatric Medicine]                                         -9.3353     31.552     -0.296      0.767     -71.216      52.546
+C(provider_type)[T.Geriatric Psychiatry]                                        0.6344     41.499      0.015      0.988     -80.754      82.022
+C(provider_type)[T.Gynecological Oncology]                                    128.7568     36.286      3.548      0.000      57.593     199.921
+C(provider_type)[T.Hand Surgery]                                              138.6180     33.071      4.192      0.000      73.758     203.478
+C(provider_type)[T.Hematology]                                                 15.8245     33.551      0.472      0.637     -49.976      81.625
+C(provider_type)[T.Hematology-Oncology]                                       -15.4975     30.156     -0.514      0.607     -74.640      43.645
+C(provider_type)[T.Hematopoietic Cell Transplantation and Cellular Therapy]    -3.2105     43.806     -0.073      0.942     -89.124      82.703
+C(provider_type)[T.Home Infusion Therapy Services]                            -21.9298     91.955     -0.238      0.812    -202.274     158.415
+C(provider_type)[T.Hospice and Palliative Care]                                14.3464     33.547      0.428      0.669     -51.446      80.139
+C(provider_type)[T.Hospitalist]                                                -1.3096     30.548     -0.043      0.966     -61.220      58.601
+C(provider_type)[T.Independent Diagnostic Testing Facility (IDTF)]             25.4511     31.572      0.806      0.420     -36.470      87.372
+C(provider_type)[T.Infectious Disease]                                         -2.3672     31.392     -0.075      0.940     -63.935      59.200
+C(provider_type)[T.Intensive Cardiac Rehabilitation]                           29.5936     56.733      0.522      0.602     -81.672     140.859
+C(provider_type)[T.Internal Medicine]                                         -16.9049     28.321     -0.597      0.551     -72.449      38.639
+C(provider_type)[T.Interventional Cardiology]                                  54.2860     29.814      1.821      0.069      -4.185     112.757
+C(provider_type)[T.Interventional Pain Management]                             26.0169     30.972      0.840      0.401     -34.726      86.759
+C(provider_type)[T.Interventional Radiology]                                   49.6455     31.916      1.555      0.120     -12.949     112.240
+C(provider_type)[T.Licensed Clinical Social Worker]                           -11.5546     29.173     -0.396      0.692     -68.770      45.661
+C(provider_type)[T.Mammography Center]                                        -38.6450     68.987     -0.560      0.575    -173.943      96.653
+C(provider_type)[T.Mass Immunizer Roster Biller]                              -16.3737     30.387     -0.539      0.590     -75.969      43.222
+C(provider_type)[T.Maxillofacial Surgery]                                      10.8603     38.401      0.283      0.777     -64.453      86.173
+C(provider_type)[T.Medical Genetics and Genomics]                              35.1883     67.393      0.522      0.602     -96.984     167.361
+C(provider_type)[T.Medical Oncology]                                          -11.3403     31.108     -0.365      0.715     -72.351      49.670
+C(provider_type)[T.Medical Toxicology]                                         25.8456     67.393      0.384      0.701    -106.327     158.019
+C(provider_type)[T.Medicare Diabetes Preventive Program]                        1.5171     46.578      0.033      0.974     -89.833      92.867
+C(provider_type)[T.Micrographic Dermatologic Surgery]                         132.9667     41.498      3.204      0.001      51.581     214.353
+C(provider_type)[T.Nephrology]                                                 36.5152     30.288      1.206      0.228     -22.886      95.917
+C(provider_type)[T.Neurology]                                                  21.1871     30.132      0.703      0.482     -37.909      80.283
+C(provider_type)[T.Neuropsychiatry]                                            17.6480     43.704      0.404      0.686     -68.065     103.361
+C(provider_type)[T.Neurosurgery]                                              188.6552     32.289      5.843      0.000     125.330     251.980
+C(provider_type)[T.Nuclear Medicine]                                          -12.8568     39.810     -0.323      0.747     -90.933      65.219
+C(provider_type)[T.Nurse Practitioner]                                        -32.0160     28.109     -1.139      0.255     -87.144      23.112
+C(provider_type)[T.Obstetrics & Gynecology]                                    19.9700     29.571      0.675      0.500     -38.026      77.966
+C(provider_type)[T.Occupational Therapist in Private Practice]                -50.7250     30.796     -1.647      0.100    -111.122       9.672
+C(provider_type)[T.Ophthalmology]                                             168.8394     29.718      5.681      0.000     110.556     227.122
+C(provider_type)[T.Opioid Treatment Program]                                   70.5847     37.244      1.895      0.058      -2.458     143.628
+C(provider_type)[T.Optometry]                                                 -27.0379     28.959     -0.934      0.351     -83.833      29.757
+C(provider_type)[T.Oral Surgery (Dentist only)]                                76.3216     35.434      2.154      0.031       6.829     145.815
+C(provider_type)[T.Orthopedic Surgery]                                        180.3035     29.307      6.152      0.000     122.825     237.782
+C(provider_type)[T.Osteopathic Manipulative Medicine]                          -7.6383     30.746     -0.248      0.804     -67.939      52.662
+C(provider_type)[T.Otolaryngology]                                             44.6369     30.487      1.464      0.143     -15.154     104.428
+C(provider_type)[T.Pain Management]                                            20.3487     30.310      0.671      0.502     -39.096      79.793
+C(provider_type)[T.Pathology]                                                 -62.9320     30.840     -2.041      0.041    -123.417      -2.447
+C(provider_type)[T.Pediatric Medicine]                                        -25.6298     31.545     -0.812      0.417     -87.497      36.238
+C(provider_type)[T.Peripheral Vascular Disease]                               132.9534     43.714      3.041      0.002      47.220     218.687
+C(provider_type)[T.Pharmacy]                                                  -23.5041     31.716     -0.741      0.459     -85.707      38.698
+C(provider_type)[T.Physical Medicine and Rehabilitation]                        0.2572     30.138      0.009      0.993     -58.850      59.364
+C(provider_type)[T.Physical Therapist in Private Practice]                    -48.6832     29.942     -1.626      0.104    -107.407      10.040
+C(provider_type)[T.Physician Assistant]                                       -28.5294     28.227     -1.011      0.312     -83.889      26.830
+C(provider_type)[T.Plastic and Reconstructive Surgery]                         96.2704     30.752      3.131      0.002      35.959     156.581
+C(provider_type)[T.Podiatry]                                                  -26.4457     28.738     -0.920      0.358     -82.807      29.916
+C(provider_type)[T.Portable X-Ray Supplier]                                   -62.5330     33.625     -1.860      0.063    -128.480       3.414
+C(provider_type)[T.Preventive Medicine]                                       -16.6750     35.450     -0.470      0.638     -86.200      52.850
+C(provider_type)[T.Psychiatry]                                                 -1.1024     29.163     -0.038      0.970     -58.298      56.093
+C(provider_type)[T.Psychologist, Clinical]                                      8.9915     29.434      0.305      0.760     -48.735      66.718
+C(provider_type)[T.Public Health or Welfare Agency]                           -19.3376     34.146     -0.566      0.571     -86.305      47.629
+C(provider_type)[T.Pulmonary Disease]                                         -15.3705     29.468     -0.522      0.602     -73.164      42.423
+C(provider_type)[T.Radiation Oncology]                                         90.3550     30.091      3.003      0.003      31.339     149.371
+C(provider_type)[T.Radiation Therapy Center]                                  227.2087     46.595      4.876      0.000     135.825     318.592
+C(provider_type)[T.Registered Dietitian or Nutrition Professional]            -60.8918     31.839     -1.912      0.056    -123.336       1.552
+C(provider_type)[T.Rheumatology]                                              -19.0071     31.364     -0.606      0.545     -80.519      42.505
+C(provider_type)[T.Sleep Medicine]                                              4.6205     32.226      0.143      0.886     -58.583      67.824
+C(provider_type)[T.Slide Preparation Facility]                                -87.5201     97.276     -0.900      0.368    -278.300     103.259
+C(provider_type)[T.Speech Language Pathologist]                                 0.5250     32.648      0.016      0.987     -63.506      64.556
+C(provider_type)[T.Sports Medicine]                                            65.8856     32.212      2.045      0.041       2.712     129.060
+C(provider_type)[T.Surgical Oncology]                                         101.4995     34.710      2.924      0.003      33.425     169.574
+C(provider_type)[T.Thoracic Surgery]                                          240.7713     31.530      7.636      0.000     178.934     302.609
+C(provider_type)[T.Undefined Physician type]                                   20.5075     35.435      0.579      0.563     -48.989      90.004
+C(provider_type)[T.Undersea and Hyperbaric Medicine]                          -16.5132     38.398     -0.430      0.667     -91.819      58.793
+C(provider_type)[T.Unknown Supplier/Provider Specialty]                       -36.6663     46.578     -0.787      0.431    -128.016      54.684
+C(provider_type)[T.Urology]                                                    26.9025     29.613      0.908      0.364     -31.176      84.981
+C(provider_type)[T.Vascular Surgery]                                           96.2573     31.256      3.080      0.002      34.957     157.557
+C(place_of_service)[T.O]                                                      -30.5595      4.230     -7.225      0.000     -38.855     -22.265
+C(ruca)[T.1.1]                                                                 11.8198      9.677      1.221      0.222      -7.159      30.799
+C(ruca)[T.10.0]                                                               -26.3287      9.953     -2.645      0.008     -45.849      -6.809
+C(ruca)[T.10.1]                                                                -9.6836     16.748     -0.578      0.563     -42.531      23.163
+C(ruca)[T.10.2]                                                                -7.6539     18.685     -0.410      0.682     -44.300      28.992
+C(ruca)[T.10.3]                                                                -5.8536     19.261     -0.304      0.761     -43.629      31.922
+C(ruca)[T.2.0]                                                                 -1.0039      9.559     -0.105      0.916     -19.751      17.743
+C(ruca)[T.2.1]                                                                  0.0662     12.724      0.005      0.996     -24.888      25.020
+C(ruca)[T.3.0]                                                                -28.4446     12.230     -2.326      0.020     -52.430      -4.459
+C(ruca)[T.4.0]                                                                -18.0960      9.246     -1.957      0.050     -36.229       0.037
+C(ruca)[T.4.1]                                                                 15.5713     10.359      1.503      0.133      -4.745      35.887
+C(ruca)[T.5.0]                                                                -10.6679     10.202     -1.046      0.296     -30.676       9.340
+C(ruca)[T.5.1]                                                                -23.3820     19.321     -1.210      0.226     -61.275      14.510
+C(ruca)[T.6.0]                                                                 -7.4474     14.817     -0.503      0.615     -36.507      21.612
+C(ruca)[T.7.0]                                                                -10.3557      9.767     -1.060      0.289     -29.511       8.799
+C(ruca)[T.7.1]                                                                -27.2406     11.571     -2.354      0.019     -49.933      -4.548
+C(ruca)[T.7.2]                                                                 11.9282     11.805      1.010      0.312     -11.224      35.080
+C(ruca)[T.8.0]                                                                  6.3901     12.382      0.516      0.606     -17.893      30.673
+C(ruca)[T.8.1]                                                                -26.8289     30.807     -0.871      0.384     -87.248      33.590
+C(ruca)[T.8.2]                                                                 -1.6892     18.584     -0.091      0.928     -38.137      34.758
+C(ruca)[T.9.0]                                                                  4.6295     13.006      0.356      0.722     -20.877      30.136
+C(ruca)[T.99.0]                                                                -0.9748     10.651     -0.092      0.927     -21.863      19.914
+avg_services                                                                    0.0017      0.003      0.579      0.563      -0.004       0.007
+avg_beneficiaries                                                               0.0446      0.026      1.710      0.087      -0.007       0.096
+avg_services:avg_beneficiaries                                              -1.187e-06   1.28e-06     -0.929      0.353   -3.69e-06    1.32e-06
+==============================================================================
+Omnibus:                     1280.141   Durbin-Watson:                   1.609
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            81219.510
+Skew:                           2.243   Prob(JB):                         0.00
+Kurtosis:                      33.754   Cond. No.                     5.94e+08
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 5.94e+08. This might indicate that there are
+strong multicollinearity or other numerical problems.

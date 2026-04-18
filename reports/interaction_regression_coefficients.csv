@@ -1,0 +1,129 @@
+variable,coefficient,p_value
+Intercept,120.53086619338038,2.2464984485151594e-06
+C(provider_type)[T.Adult Congenital Heart Disease],-5.856817902550282,0.930755997591391
+C(provider_type)[T.Advanced Heart Failure and Transplant Cardiology],-14.906439409527787,0.6890933909178683
+C(provider_type)[T.All Other Suppliers],121.90638134585554,0.005772921760065165
+C(provider_type)[T.Allergy/ Immunology],-26.08138778131392,0.41858425840250535
+C(provider_type)[T.Ambulance Service Provider],228.67540225941502,5.016230086115503e-13
+C(provider_type)[T.Ambulatory Surgical Center],1224.768732703938,1.3002830396059643e-228
+C(provider_type)[T.Anesthesiology],7.9565107613487704,0.785082917631582
+C(provider_type)[T.Anesthesiology Assistant],8.356691022398142,0.833867815190529
+C(provider_type)[T.Audiologist],-65.41460066052863,0.032262411594598604
+C(provider_type)[T.Cardiac Surgery],184.43828346869813,2.7409729366327047e-08
+C(provider_type)[T.Cardiology],-1.254866216770909,0.9662307763766673
+C(provider_type)[T.Centralized Flu],-17.28643499829213,0.5892837657821857
+C(provider_type)[T.Certified Clinical Nurse Specialist],-21.224104644426745,0.5151058579411032
+C(provider_type)[T.Certified Nurse Midwife],-36.16506213369584,0.27424275680001037
+C(provider_type)[T.Certified Registered Nurse Anesthetist (CRNA)],23.920662420141106,0.412711885899511
+C(provider_type)[T.Chiropractic],-60.113041250801245,0.04481439220366957
+C(provider_type)[T.Clinic or Group Practice],-25.18496209864166,0.5642357534198139
+C(provider_type)[T.Clinical Cardiac Electrophysiology],49.384071177797914,0.13549396520561452
+C(provider_type)[T.Clinical Laboratory],-86.12216672181668,0.009299005832365781
+C(provider_type)[T.Colorectal Surgery (Proctology)],50.539339540292836,0.11337658456241444
+C(provider_type)[T.Critical Care (Intensivists)],8.539874473995932,0.788936983413226
+C(provider_type)[T.Dentist],397.0633998574361,2.416021110504422e-19
+C(provider_type)[T.Dermatology],39.57367606772057,0.19522970224451658
+C(provider_type)[T.Diagnostic Radiology],-40.55199290933576,0.16671629979181546
+C(provider_type)[T.Emergency Medicine],-15.271140159933971,0.5929750287903764
+C(provider_type)[T.Endocrinology],-13.416469364802513,0.6626459813347269
+C(provider_type)[T.Family Practice],-20.966653787569193,0.45592520373634093
+C(provider_type)[T.Gastroenterology],26.550966465469628,0.37224045940111206
+C(provider_type)[T.General Practice],-16.271117778521372,0.5725098124896555
+C(provider_type)[T.General Surgery],39.776278277882426,0.167833043372333
+C(provider_type)[T.Geriatric Medicine],-9.335277511572611,0.7673648137763089
+C(provider_type)[T.Geriatric Psychiatry],0.6343780220633761,0.9878050614035189
+C(provider_type)[T.Gynecological Oncology],128.75677658297732,0.00039701350325220324
+C(provider_type)[T.Hand Surgery],138.61800678409074,2.898710298184208e-05
+C(provider_type)[T.Hematology],15.824473741006301,0.6372252035046546
+C(provider_type)[T.Hematology-Oncology],-15.49751838964426,0.6073755543121324
+C(provider_type)[T.Hematopoietic Cell Transplantation and Cellular Therapy],-3.2105163013824396,0.9415835611567616
+C(provider_type)[T.Home Infusion Therapy Services],-21.92976574087253,0.8115324892235399
+C(provider_type)[T.Hospice and Palliative Care],14.346425686107644,0.6689523048161345
+C(provider_type)[T.Hospitalist],-1.3096425921813155,0.9658078867539823
+C(provider_type)[T.Independent Diagnostic Testing Facility (IDTF)],25.45107261378452,0.4202775550946505
+C(provider_type)[T.Infectious Disease],-2.367158892932288,0.9399001080697604
+C(provider_type)[T.Intensive Cardiac Rehabilitation],29.593561656648532,0.60199005530582
+C(provider_type)[T.Internal Medicine],-16.904897713899008,0.5506446105880477
+C(provider_type)[T.Interventional Cardiology],54.28604227675186,0.06878812891257338
+C(provider_type)[T.Interventional Pain Management],26.016942248544723,0.4010031970843625
+C(provider_type)[T.Interventional Radiology],49.64553982862491,0.11999493244106292
+C(provider_type)[T.Licensed Clinical Social Worker],-11.554553643631094,0.6921006267269016
+C(provider_type)[T.Mammography Center],-38.64503909489723,0.5754225868531393
+C(provider_type)[T.Mass Immunizer Roster Biller],-16.373658616520604,0.5900602077321092
+C(provider_type)[T.Maxillofacial Surgery],10.86027754047065,0.777351985947516
+C(provider_type)[T.Medical Genetics and Genomics],35.18826510131209,0.6016376602626642
+C(provider_type)[T.Medical Oncology],-11.340254248793537,0.7154964138410154
+C(provider_type)[T.Medical Toxicology],25.84564597070329,0.7013882613462901
+C(provider_type)[T.Medicare Diabetes Preventive Program],1.5171142541882892,0.9740197652149938
+C(provider_type)[T.Micrographic Dermatologic Surgery],132.96673838130656,0.0013769829541308487
+C(provider_type)[T.Nephrology],36.51518972210837,0.2281221779624234
+C(provider_type)[T.Neurology],21.18707345557234,0.4820562276603453
+C(provider_type)[T.Neuropsychiatry],17.64796207386389,0.6864007271207067
+C(provider_type)[T.Neurosurgery],188.65522721976913,6.031390826096774e-09
+C(provider_type)[T.Nuclear Medicine],-12.856778930148737,0.746766426413166
+C(provider_type)[T.Nurse Practitioner],-32.01604017329524,0.2548499609975567
+C(provider_type)[T.Obstetrics & Gynecology],19.969982795475687,0.4995600821893651
+C(provider_type)[T.Occupational Therapist in Private Practice],-50.72501135411204,0.09969258802859844
+C(provider_type)[T.Ophthalmology],168.83935110456383,1.5434895566655064e-08
+C(provider_type)[T.Opioid Treatment Program],70.58474631837403,0.05821628448883904
+C(provider_type)[T.Optometry],-27.037851970995224,0.35059758710404254
+C(provider_type)[T.Oral Surgery (Dentist only)],76.32161690262473,0.031371287288904016
+C(provider_type)[T.Orthopedic Surgery],180.30351007983015,9.306261261411515e-10
+C(provider_type)[T.Osteopathic Manipulative Medicine],-7.638274087382488,0.8038294700253664
+C(provider_type)[T.Otolaryngology],44.63690321216142,0.14332061075138552
+C(provider_type)[T.Pain Management],20.34872438233122,0.5020756707378453
+C(provider_type)[T.Pathology],-62.93201264202856,0.041432656920411016
+C(provider_type)[T.Pediatric Medicine],-25.629789227099057,0.4166234724553869
+C(provider_type)[T.Peripheral Vascular Disease],132.95344186736745,0.002387136456025809
+C(provider_type)[T.Pharmacy],-23.504114131708672,0.45873946463163284
+C(provider_type)[T.Physical Medicine and Rehabilitation],0.2572238508054806,0.9931910914168474
+C(provider_type)[T.Physical Therapist in Private Practice],-48.683245012088705,0.10413700105640268
+C(provider_type)[T.Physician Assistant],-28.52943836306961,0.3122824321411086
+C(provider_type)[T.Plastic and Reconstructive Surgery],96.27039450308268,0.0017713643173568796
+C(provider_type)[T.Podiatry],-26.445732116852643,0.35756571592441777
+C(provider_type)[T.Portable X-Ray Supplier],-62.53295160484773,0.06308369832405814
+C(provider_type)[T.Preventive Medicine],-16.67502624826294,0.6381357079944476
+C(provider_type)[T.Psychiatry],-1.1024150803312627,0.969849793460839
+"C(provider_type)[T.Psychologist, Clinical]",8.991483934697564,0.760035802544621
+C(provider_type)[T.Public Health or Welfare Agency],-19.33757956153037,0.5712382700427019
+C(provider_type)[T.Pulmonary Disease],-15.370545134363198,0.6020131127375874
+C(provider_type)[T.Radiation Oncology],90.35501110632975,0.0027112245165341075
+C(provider_type)[T.Radiation Therapy Center],227.20870226326426,1.171836625018479e-06
+C(provider_type)[T.Registered Dietitian or Nutrition Professional],-60.89179242627939,0.055966973014827885
+C(provider_type)[T.Rheumatology],-19.007133948189775,0.5445782381634745
+C(provider_type)[T.Sleep Medicine],4.620490426924419,0.8860087542888078
+C(provider_type)[T.Slide Preparation Facility],-87.52008100047846,0.36838943664649015
+C(provider_type)[T.Speech Language Pathologist],0.5250447473575444,0.9871708105199367
+C(provider_type)[T.Sports Medicine],65.88564241430944,0.040953292208222504
+C(provider_type)[T.Surgical Oncology],101.49954189229062,0.003494714984619908
+C(provider_type)[T.Thoracic Surgery],240.7713269412528,3.5281490243894163e-14
+C(provider_type)[T.Undefined Physician type],20.507460090430417,0.5628410113177165
+C(provider_type)[T.Undersea and Hyperbaric Medicine],-16.513170813458423,0.667203500554207
+C(provider_type)[T.Unknown Supplier/Provider Specialty],-36.6663256252566,0.43126263203717097
+C(provider_type)[T.Urology],26.9025107817326,0.36375328367392246
+C(provider_type)[T.Vascular Surgery],96.25729602315039,0.0021024111751811628
+C(place_of_service)[T.O],-30.559524115538398,7.219913617574205e-13
+C(ruca)[T.1.1],11.819793297846887,0.22207811501382016
+C(ruca)[T.10.0],-26.328689993291754,0.008229302949259552
+C(ruca)[T.10.1],-9.68358245409038,0.563208216865119
+C(ruca)[T.10.2],-7.653871356689254,0.6821311811306926
+C(ruca)[T.10.3],-5.853614957779837,0.7612311620685375
+C(ruca)[T.2.0],-1.0038613848771736,0.9163733059838011
+C(ruca)[T.2.1],0.0661645578426017,0.9958514679329156
+C(ruca)[T.3.0],-28.444574643518592,0.02013398348454107
+C(ruca)[T.4.0],-18.09598308435222,0.050467255264515225
+C(ruca)[T.4.1],15.571302853163655,0.1329584712001639
+C(ruca)[T.5.0],-10.66785117688171,0.2958381538218553
+C(ruca)[T.5.1],-23.3820419185843,0.2263553977640073
+C(ruca)[T.6.0],-7.447379466276186,0.6152847835895883
+C(ruca)[T.7.0],-10.355677646481817,0.28914895308949934
+C(ruca)[T.7.1],-27.24055588989385,0.018661482978317493
+C(ruca)[T.7.2],11.928232750726497,0.31241374974136993
+C(ruca)[T.8.0],6.390103845646635,0.6058512161288923
+C(ruca)[T.8.1],-26.828898674105503,0.3839356807442236
+C(ruca)[T.8.2],-1.6892268576304652,0.9275842830144619
+C(ruca)[T.9.0],4.629544545666796,0.7219055052342538
+C(ruca)[T.99.0],-0.9747998319300129,0.9270858403690453
+avg_services,0.0016899783655634018,0.5625159902390782
+avg_beneficiaries,0.04460321389517624,0.0874696266238307
+avg_services:avg_beneficiaries,-1.1865403191457238e-06,0.35306270465217926

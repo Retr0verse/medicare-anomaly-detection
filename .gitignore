@@ -205,3 +205,7 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+# Data (local only)
+data/reports/tables/provider_anomaly_scores_all.csv
+reports/tables/provider_anomaly_scores_all.csv
+reports/tables/provider_anomaly_scores_all.csv

@@ -142,11 +142,6 @@ avg_services                                                                    
 avg_beneficiaries                                                               0.0345      0.028      1.252      0.211      -0.020       0.088
 avg_services:avg_beneficiaries                                              -1.164e-06   1.22e-06     -0.957      0.339   -3.55e-06    1.22e-06
 ==============================================================================
-Omnibus:                      876.648   Durbin-Watson:                   1.509
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):            55595.923
-Skew:                           1.468   Prob(JB):                         0.00
-Kurtosis:                      30.129   Cond. No.                     2.25e+15
-==============================================================================
 
 Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

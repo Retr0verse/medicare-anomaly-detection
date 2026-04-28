@@ -3,11 +3,18 @@ Medicare Anomaly Detection - Final Analysis Script
 MedData Integrity Team (MIT)
 
 Purpose:
-This script is designed to better align the final project analysis with the
-original proposal and professor feedback. Instead of only reporting descriptive
-statistics, it builds hypothesis-driven findings around unusual Medicare billing
-patterns, provider-level anomaly detection, HCPCS cost outliers, and contextual
-regression analysis.
+This script aligns the final project analysis with the original proposal and
+professor feedback. Instead of only reporting descriptive statistics, it builds
+hypothesis-driven findings around unusual Medicare billing patterns,
+provider-level anomaly detection, HCPCS cost outliers, and contextual regression.
+
+Performance upgrades included:
+- Uses project-root paths so the script works when run from /src or project root
+- Reads only needed columns
+- Uses explicit dtypes where possible
+- Tries PyArrow CSV engine first for faster loading, then falls back to pandas C engine
+- Converts repeated text columns to categories to reduce memory and speed groupby work
+- Reuses cleaned data and saves report-ready CSV/PNG outputs
 
 Expected local project structure:
 medicare-anomaly-detection/
@@ -17,6 +24,9 @@ medicare-anomaly-detection/
 
 Run from the project root:
     python src/analysis.py
+
+Or run directly from Thonny after saving this file as:
+    src/analysis.py
 """
 
 from pathlib import Path
@@ -30,8 +40,10 @@ import statsmodels.formula.api as smf
 # -----------------------------------------------------------------------------
 # 0. Paths and setup
 # -----------------------------------------------------------------------------
-DATA_PATH = Path(__file__).resolve().parent.parent / "data/raw/MUP_PHY_R25_P05_V20_D23_Prov_Svc.csv"
-REPORTS_DIR = Path("reports")
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+DATA_PATH = PROJECT_ROOT / "data" / "raw" / "MUP_PHY_R25_P05_V20_D23_Prov_Svc.csv"
+REPORTS_DIR = PROJECT_ROOT / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
 TABLES_DIR = REPORTS_DIR / "tables"
 
@@ -39,12 +51,22 @@ REPORTS_DIR.mkdir(exist_ok=True)
 FIGURES_DIR.mkdir(parents=True, exist_ok=True)
 TABLES_DIR.mkdir(parents=True, exist_ok=True)
 
+# Set to a decimal like 0.20 only while testing. Keep None for final full run.
+DEV_SAMPLE_FRAC = None
+
 
 # -----------------------------------------------------------------------------
 # 1. Load and clean data
 # -----------------------------------------------------------------------------
 def load_and_clean_data(file_path: Path) -> pd.DataFrame:
     """Load selected CMS fields and perform basic cleaning."""
+
+    if not file_path.exists():
+        raise FileNotFoundError(
+            f"\nCould not find the raw CMS file here:\n{file_path}\n\n"
+            "Expected structure:\n"
+            "medicare-anomaly-detection/data/raw/MUP_PHY_R25_P05_V20_D23_Prov_Svc.csv\n"
+        )
 
     use_cols = [
         "Rndrng_NPI",
@@ -62,7 +84,50 @@ def load_and_clean_data(file_path: Path) -> pd.DataFrame:
         "Avg_Mdcr_Pymt_Amt",
     ]
 
-    df = pd.read_csv(file_path, usecols=use_cols, low_memory=False)
+    string_cols = [
+        "Rndrng_NPI",
+        "HCPCS_Cd",
+        "Place_Of_Srvc",
+        "Rndrng_Prvdr_Type",
+        "Rndrng_Prvdr_State_Abrvtn",
+        "Rndrng_Prvdr_Zip5",
+        "Rndrng_Prvdr_RUCA",
+    ]
+
+    numeric_cols_raw = [
+        "Tot_Srvcs",
+        "Tot_Benes",
+        "Avg_Mdcr_Alowd_Amt",
+        "Avg_Sbmtd_Chrg",
+        "Avg_Mdcr_Stdzd_Amt",
+        "Avg_Mdcr_Pymt_Amt",
+    ]
+
+    dtype_map = {col: "string" for col in string_cols}
+    dtype_map.update({col: "float64" for col in numeric_cols_raw})
+
+    # PyArrow is usually faster on large CSV files. If unavailable or incompatible,
+    # this automatically falls back to the normal pandas engine.
+    try:
+        df = pd.read_csv(
+            file_path,
+            usecols=use_cols,
+            dtype=dtype_map,
+            engine="pyarrow",
+        )
+        print("Loaded data using PyArrow engine.")
+    except Exception as exc:
+        print(f"PyArrow load unavailable/failed. Falling back to pandas C engine. Reason: {exc}")
+        df = pd.read_csv(
+            file_path,
+            usecols=use_cols,
+            dtype={col: "string" for col in string_cols},
+            low_memory=False,
+        )
+
+    if DEV_SAMPLE_FRAC is not None:
+        df = df.sample(frac=DEV_SAMPLE_FRAC, random_state=42).copy()
+        print(f"DEV SAMPLE ACTIVE: using {DEV_SAMPLE_FRAC:.0%} of rows.")
 
     df = df.rename(
         columns={
@@ -91,13 +156,15 @@ def load_and_clean_data(file_path: Path) -> pd.DataFrame:
         "avg_payment_amt",
     ]
 
+    # This is fast if values are already numeric, but still handles commas/dollar signs if needed.
     for col in numeric_cols:
-        df[col] = (
-            df[col]
-            .astype(str)
-            .str.replace(r"[^\d.-]", "", regex=True)
-            .replace("", np.nan)
-        )
+        if not pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = (
+                df[col]
+                .astype("string")
+                .str.replace(r"[^\d.-]", "", regex=True)
+                .replace("", np.nan)
+            )
         df[col] = pd.to_numeric(df[col], errors="coerce")
 
     categorical_cols = [
@@ -111,8 +178,8 @@ def load_and_clean_data(file_path: Path) -> pd.DataFrame:
     ]
 
     for col in categorical_cols:
-        df[col] = df[col].astype(str).str.strip()
-        df[col] = df[col].replace({"": np.nan, "nan": np.nan, "NAN": np.nan})
+        df[col] = df[col].astype("string").str.strip()
+        df[col] = df[col].replace({"": pd.NA, "nan": pd.NA, "NAN": pd.NA, "<NA>": pd.NA})
 
     df["state"] = df["state"].str.upper()
     df["hcpcs"] = df["hcpcs"].str.upper()
@@ -131,6 +198,12 @@ def load_and_clean_data(file_path: Path) -> pd.DataFrame:
     ].copy()
 
     df = df.drop_duplicates().copy()
+
+    # Category conversion reduces memory and speeds repeated grouping.
+    category_cols = ["hcpcs", "place_of_service", "provider_type", "state", "zip5", "ruca"]
+    for col in category_cols:
+        df[col] = df[col].astype("category")
+
     return df
 
 
@@ -140,8 +213,9 @@ def load_and_clean_data(file_path: Path) -> pd.DataFrame:
 def add_zscore(df: pd.DataFrame, col: str, group_cols: list[str] | None = None) -> pd.Series:
     """Return a z-score series, optionally within groups."""
     if group_cols:
-        mean = df.groupby(group_cols)[col].transform("mean")
-        std = df.groupby(group_cols)[col].transform("std")
+        grouped = df.groupby(group_cols, observed=True)[col]
+        mean = grouped.transform("mean")
+        std = grouped.transform("std")
     else:
         mean = df[col].mean()
         std = df[col].std()
@@ -172,7 +246,7 @@ def finding_1_provider_anomaly_detection(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     provider_df = (
-        df.groupby("npi_id", as_index=False)
+        df.groupby("npi_id", observed=True, as_index=False)
         .agg(
             total_services=("tot_srvcs", "sum"),
             total_beneficiaries=("tot_benes", "sum"),
@@ -180,10 +254,10 @@ def finding_1_provider_anomaly_detection(df: pd.DataFrame) -> pd.DataFrame:
             avg_payment_amt=("avg_payment_amt", "mean"),
             avg_submitted_charge=("avg_submitted_charge", "mean"),
             avg_standardized_amt=("avg_standardized_amt", "mean"),
-            provider_type=("provider_type", lambda x: x.mode().iloc[0] if not x.mode().empty else x.iloc[0]),
-            state=("state", lambda x: x.mode().iloc[0] if not x.mode().empty else x.iloc[0]),
-            zip5=("zip5", lambda x: x.mode().iloc[0] if not x.mode().empty else x.iloc[0]),
-            ruca=("ruca", lambda x: x.mode().iloc[0] if not x.mode().empty else x.iloc[0]),
+            provider_type=("provider_type", "first"),
+            state=("state", "first"),
+            zip5=("zip5", "first"),
+            ruca=("ruca", "first"),
             unique_hcpcs=("hcpcs", "nunique"),
         )
     )
@@ -220,11 +294,9 @@ def finding_1_provider_anomaly_detection(df: pd.DataFrame) -> pd.DataFrame:
         "anomaly_score", ascending=False
     ).head(25)
 
-    # Save outputs.
     provider_df.to_csv(TABLES_DIR / "provider_anomaly_scores_all.csv", index=False)
     top_provider_anomalies.to_csv(TABLES_DIR / "top_provider_anomalies.csv", index=False)
 
-    # Chart 1: distribution of anomaly scores.
     plt.figure(figsize=(10, 6))
     plt.hist(provider_df["anomaly_score"].dropna(), bins=60)
     plt.title("Distribution of Provider Anomaly Scores")
@@ -232,9 +304,9 @@ def finding_1_provider_anomaly_detection(df: pd.DataFrame) -> pd.DataFrame:
     plt.ylabel("Number of Providers")
     save_plot(FIGURES_DIR / "provider_anomaly_score_distribution.png")
 
-    # Chart 2: top 10 anomaly scores.
     top10 = top_provider_anomalies.head(10).copy()
     top10["npi_id"] = top10["npi_id"].astype(str)
+
     plt.figure(figsize=(10, 6))
     plt.barh(top10["npi_id"], top10["anomaly_score"])
     plt.gca().invert_yaxis()
@@ -288,7 +360,7 @@ def finding_2_hcpcs_cost_outliers(df: pd.DataFrame) -> pd.DataFrame:
     ).head(25)
 
     hcpcs_summary = (
-        hcpcs_df.groupby("hcpcs", as_index=False)
+        hcpcs_df.groupby("hcpcs", observed=True, as_index=False)
         .agg(
             observation_count=("npi_id", "count"),
             provider_count=("npi_id", "nunique"),
@@ -304,7 +376,6 @@ def finding_2_hcpcs_cost_outliers(df: pd.DataFrame) -> pd.DataFrame:
     top_hcpcs_outliers.to_csv(TABLES_DIR / "top_hcpcs_cost_outliers.csv", index=False)
     hcpcs_summary.to_csv(TABLES_DIR / "hcpcs_cost_variability_summary.csv", index=False)
 
-    # Chart: Top HCPCS codes by count of extreme outlier records.
     top_codes = hcpcs_summary[hcpcs_summary["outlier_count"] > 0].head(10)
     if not top_codes.empty:
         plt.figure(figsize=(10, 6))
@@ -331,7 +402,7 @@ def finding_3_contextual_regression(df: pd.DataFrame) -> tuple[object, object]:
     """
 
     regression_df = (
-        df.groupby(["provider_type", "place_of_service", "ruca"], as_index=False)
+        df.groupby(["provider_type", "place_of_service", "ruca"], observed=True, as_index=False)
         .agg(
             avg_allowed_amt=("avg_allowed_amt", "mean"),
             avg_payment_amt=("avg_payment_amt", "mean"),
@@ -360,7 +431,6 @@ def finding_3_contextual_regression(df: pd.DataFrame) -> tuple[object, object]:
     base_model = smf.ols(formula=base_formula, data=regression_df).fit()
     interaction_model = smf.ols(formula=interaction_formula, data=regression_df).fit()
 
-    # Save regression summaries.
     with open(REPORTS_DIR / "base_regression_summary.txt", "w", encoding="utf-8") as f:
         f.write(base_model.summary().as_text())
 
@@ -428,6 +498,7 @@ def write_project_summary(
     total_providers = df["npi_id"].nunique()
     total_hcpcs = df["hcpcs"].nunique()
     high_risk_providers = int(provider_scores["is_high_risk_outlier"].sum())
+    hcpcs_outlier_records = len(top_hcpcs_outliers)
 
     summary_text = f"""
 Medicare Anomaly Detection - Final Analysis Summary
@@ -447,7 +518,7 @@ Finding 1 - Provider-Level Anomaly Detection:
 Finding 2 - HCPCS Cost Outliers:
 - Compared provider billing amounts within HCPCS billing-code peer groups.
 - Flagged providers with extreme allowed, payment, or submitted-charge z-scores.
-- Top HCPCS cost outlier records saved to reports/tables/top_hcpcs_cost_outliers.csv.
+- Top HCPCS cost outlier records saved: {hcpcs_outlier_records:,}
 
 Finding 3 - Contextual Regression:
 - Estimated OLS models to explain average allowed amount using provider type, place of service, RUCA, services, and beneficiaries.
@@ -487,12 +558,12 @@ def main() -> None:
     write_project_summary(df, provider_scores, top_hcpcs_outliers, base_model, interaction_model)
 
     print("\nDONE. Key outputs saved to:")
-    print("- reports/final_analysis_summary.txt")
-    print("- reports/tables/top_provider_anomalies.csv")
-    print("- reports/tables/top_hcpcs_cost_outliers.csv")
-    print("- reports/tables/regression_model_summary.csv")
-    print("- reports/figures/provider_anomaly_score_distribution.png")
-    print("- reports/figures/top_10_provider_anomaly_scores.png")
+    print(f"- {REPORTS_DIR / 'final_analysis_summary.txt'}")
+    print(f"- {TABLES_DIR / 'top_provider_anomalies.csv'}")
+    print(f"- {TABLES_DIR / 'top_hcpcs_cost_outliers.csv'}")
+    print(f"- {TABLES_DIR / 'regression_model_summary.csv'}")
+    print(f"- {FIGURES_DIR / 'provider_anomaly_score_distribution.png'}")
+    print(f"- {FIGURES_DIR / 'top_10_provider_anomaly_scores.png'}")
 
 
 if __name__ == "__main__":

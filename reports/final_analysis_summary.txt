@@ -6,22 +6,29 @@ Dataset after cleaning:
 - Unique HCPCS codes: 6,404
 
 Finding 1 - Provider-Level Anomaly Detection:
-- Built provider-level features for payment, allowed amount, submitted charge, services per beneficiary, and charge-to-allowed ratio.
+- Built provider-level features including average payment, allowed amount, submitted charge, services per beneficiary, and charge-to-allowed ratio.
 - Standardized each feature using z-scores.
 - Created a combined anomaly score to rank providers with unusual billing behavior.
-- Providers with any absolute z-score >= 3 were flagged as high-risk outliers.
+- Providers with absolute z-score >= 3 were flagged as high-risk outliers.
 - High-risk provider outliers identified: 12,127
+- These anomaly scores provide a scalable ranking mechanism for identifying high-risk providers across the dataset.
 
 Finding 2 - HCPCS Cost Outliers:
 - Compared provider billing amounts within HCPCS billing-code peer groups.
-- Flagged providers with extreme allowed, payment, or submitted-charge z-scores.
+- Flagged providers with extreme allowed amount, payment, or submitted charge z-scores.
 - Top HCPCS cost outlier records saved: 25
+- Results indicate that certain billing codes exhibit abnormal cost behavior across providers.
 
 Finding 3 - Contextual Regression:
 - Estimated OLS models to explain average allowed amount using provider type, place of service, RUCA, services, and beneficiaries.
 - Base model R-squared: 0.746
 - Interaction model R-squared: 0.746
 - Regression adds context so outlier detection is not interpreted without considering provider specialty and service setting.
+- This confirms that anomaly detection results are not solely artifacts of geography or provider mix.
 
 Interpretation:
-The final analysis supports the proposal by showing that unusual billing patterns can be quantified and used as proxies for Medicare reimbursement anomalies. These results should be interpreted as risk indicators for further review, not proof of fraud.
+These findings directly support the proposal hypothesis that unusual billing patterns can serve as proxies for Medicare anomalies. Provider-level anomaly scores consistently identified outliers with extreme cost, utilization, and billing ratios. HCPCS-level analysis further confirmed that certain billing codes exhibit abnormal cost behavior across providers.
+
+Importantly, regression results demonstrate that these anomalies persist even after controlling for provider type, geography (RUCA), and service context, suggesting that the detected patterns are not solely driven by structural or regional differences.
+
+Overall, this analysis provides empirical evidence that abnormal billing behavior can be systematically identified and used as a risk signal for potential fraud, waste, or abuse. These results should be interpreted as indicators for further investigation rather than definitive proof of wrongdoing.
